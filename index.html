@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivian Kabiru - Commercial Model</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Night Theme (default) */
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #1a1a2e;
+            --bg-accent: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #c9d1d9;
+            --accent-color: #7b68ee;
+            --accent-glow: rgba(123, 104, 238, 0.3);
+            --border-color: #2d3748;
+            --hover-overlay: rgba(123, 104, 238, 0.2);
+        }
+
+        body.day-theme {
+            /* Day Theme */
+            --bg-primary: #f5f5f0;
+            --bg-secondary: #ffffff;
+            --bg-accent: #fafaf8;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --accent-color: #d4af37;
+            --accent-glow: rgba(212, 175, 55, 0.3);
+            --border-color: #e5e5e0;
+            --hover-overlay: rgba(212, 175, 55, 0.15);
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: var(--bg-accent);
+            border: 2px solid var(--accent-color);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px var(--accent-glow);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .theme-toggle-icon {
+            font-size: 1.2rem;
+        }
+
+        .theme-toggle-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+
+        /* Introduction Section */
+        .intro-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+
+        .intro-photo {
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .intro-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder {
+            font-size: 4rem;
+            color: var(--accent-color);
+            opacity: 0.5;
+        }
+
+        .intro-text {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--bg-primary);
+        }
+
+        .intro-text h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .intro-text h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .intro-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-text p strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        /* Two Photos Section */
+        .two-photos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .photo-box {
+            aspect-ratio: 3/4;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .photo-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--hover-overlay);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .photo-box:hover::before {
+            opacity: 1;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .photo-box:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Three Photos Section - Bag Campaign */
+        .campaign-section {
+            padding: 4rem 2rem;
+            background: var(--bg-accent);
+            border-top: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .campaign-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .campaign-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 2px;
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .three-photos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .campaign-photo {
+            aspect-ratio: 3/4;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .campaign-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--hover-overlay);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .campaign-photo:hover::before {
+            opacity: 1;
+        }
+
+        .campaign-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .campaign-photo:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 60vh;
+            background: var(--bg-primary);
+        }
+
+        .contact-info {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            background: var(--bg-primary);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .contact-info h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .contact-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item strong {
+            display: block;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .contact-item a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .instagram-screenshot {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .instagram-screenshot img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+
+        .contact-photo {
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .contact-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .intro-section {
+                grid-template-columns: 1fr;
+            }
+
+            .intro-text {
+                padding: 3rem 2rem;
+            }
+
+            .intro-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .three-photos {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .intro-text {
+                padding: 2rem 1.5rem;
+            }
+
+            .intro-text h1 {
+                font-size: 2rem;
+            }
+
+            .intro-text p {
+                font-size: 1rem;
+            }
+
+            .two-photos {
+                grid-template-columns: 1fr;
+            }
+
+            .campaign-section {
+                padding: 3rem 1rem;
+            }
+
+            .campaign-title {
+                font-size: 1.5rem;
+            }
+
+            .contact-info {
+                padding: 2rem 1.5rem;
+            }
+
+            .contact-info h2 {
+                font-size: 2rem;
+            }
+
+            .theme-toggle {
+                padding: 0.6rem 1.2rem;
+            }
+
+            .theme-toggle-text {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .intro-text h1 {
+                font-size: 1.8rem;
+            }
+
+            .intro-text p {
+                font-size: 0.95rem;
+            }
+
+            .contact-info h2 {
+                font-size: 1.8rem;
+            }
+
+            .contact-item {
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        section {
+            animation: fadeIn 0.8s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+   
+
+    <!-- Introduction Section -->
+    <section class="intro-section">
+        <div class="intro-photo">
+            <span class="placeholder"></span>
+            <img src="images/intro.jpg" alt="Vivian Kabiru">
+        </div>
+        <div class="intro-text">
+            <h1>Vivian Kabiru - About Me</h1>
+            <p>I am Vivian Kabiru, a commercial model with a thrilling presence and a great interest in brand influencing. Having worked in the corporate PR/marketing field, I have strategic knowledge of how images are created to create perception, influence audiences, and connect them.</p>
+            <p>I have a bold, energetic, and expressive style of modeling the company would best suit the brands with the desire to develop new, innovative campaigns and make an impression. I have collaborated with local creators such as the startup, Linkarp, which is an AI-based application under the umbrella of social capital helping people build, unlock, and use social capital at professional and social gatherings, and integrating technology, community, and storytelling.</p>
+            <p>I look forward to continuing to work with brands and creators who are breaking the rules. It is my energy, professionalism and an intuitive sense of connection to any project that I bring before the camera or behind the concept.</p>
+            <p><strong>We should make something mighty.</strong></p>
+        </div>
+    </section>
+
+    <section class="two-photos">
+        <div class="photo-box">
+            <img src="images/me1.jpg" alt="Vivian Kabiru Portfolio">
+        </div>
+        <div class="photo-box">
+            <img src="images/me2.jpg" alt="Vivian Kabiru Portfolio">
+        </div>
+       
+    </section>
+    <!-- Add this between any two sections -->
+    <section style="padding: 2rem; background: var(--bg-primary);">
+        <div style="max-width: 800px; margin: 0 auto; aspect-ratio: 3/4; overflow: hidden;">
+            <img src="images/link.jpg" alt="Vivian Kabiru" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+    </section>
+    <!-- Campaign Section - Three Photos -->
+    <section class="campaign-section">
+        <h2 class="campaign-title"></h2>
+        <div class="three-photos">
+            <div class="campaign-photo">
+                <span class="placeholder"></span>
+                <img src="images/bag1.jpg" alt="Bag Campaign">
+            </div>
+            <div class="campaign-photo">
+                <span class="placeholder"></span>
+                <img src="images/bag2.jpg" alt="Bag Campaign">
+            </div>
+            <div class="campaign-photo">
+                <span class="placeholder"></span>
+                <img src="images/bag5.jpg" alt="Bag Campaign"> 
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-info">
+            <h2>Let's Connect</h2>
+            <div class="contact-item">
+                <strong>Phone</strong>
+                <a href="tel:+254799526802">+254 799 526 802</a>
+            </div>
+            <div class="contact-item">
+                <strong>Email</strong>
+                <a href="mailto:viviankabiru0@gmail.com">viviankabiru0@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <strong>Instagram</strong>
+                <a href="https://instagram.com/wambui_kabiru" target="_blank">@wambui_kabiru</a>
+            </div>
+            <div class="instagram-screenshot">
+                <span class="placeholder" style="font-size: 2rem;"></span>
+                <img src="images/ig.jpg" alt="Instagram Profile">
+            </div>
+        </div>
+        <div class="contact-photo">
+            <span class="placeholder"></span>
+            <img src="images/footer.jpg" alt="Vivian Kabiru"> 
+        </div>
+    </section>
+
+    
+</body>
+</html>
